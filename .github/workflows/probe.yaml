@@ -1,0 +1,15 @@
+name: Probe mirrors
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    name: Probe
+    runs-on: ubuntu-latest
+    steps:
+    - name: Probe 1ms.run
+      run: |
+        docker pull docker.1ms.run/swebench/sweb.eval.x86_64.astropy_1776_astropy-11693:latest 2>&1 | tail -3
+        docker pull docker.xuanyuan.me/swebench/sweb.eval.x86_64.astropy_1776_astropy-11693:latest 2>&1 | tail -3
+        docker pull docker.m.daocloud.io/swebench/sweb.eval.x86_64.astropy_1776_astropy-11693:latest 2>&1 | tail -3
