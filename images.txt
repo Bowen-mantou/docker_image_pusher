@@ -1,6 +1,5 @@
-nginx
-#支持私库
-k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.0.0
-xhofe/alist:latest
-#支持指定架构
---platform=linux/arm64 xiaoyaliu/alist
+swebench/sweb.eval.x86_64.matplotlib_1776_matplotlib-13859:latest
+swebench/sweb.eval.x86_64.matplotlib_1776_matplotlib-13913:latest
+swebench/sweb.eval.x86_64.matplotlib_1776_matplotlib-13980:latest
+swebench/sweb.eval.x86_64.matplotlib_1776_matplotlib-13983:latest
+swebench/sweb.eval.x86_64.matplotlib_1776_matplotlib-14043:latest
