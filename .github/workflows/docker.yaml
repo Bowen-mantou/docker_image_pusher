@@ -64,9 +64,9 @@ jobs:
     - name: Select batch
       run: |
         BATCH="${{ github.event.inputs.batch }}"
-        if [ -f "images_batch${BATCH}.txt" ]; then
-          cp "images_batch${BATCH}.txt" images.txt
-          echo "using images_batch${BATCH}.txt"
+        if [ -f "images_batch_test.txt" ]; then
+          cp "images_batch_test.txt" images.txt
+          echo "using images_batch_test.txt"
         else
           echo "using default images.txt"
         fi
@@ -129,8 +129,8 @@ jobs:
                 continue
             fi
         
-            echo "docker pull $line"
-            docker pull $line
+            echo "docker pull docker.1panel.live/$line"
+            docker pull docker.1panel.live/$line
             platform=$(echo "$line" | awk -F'--platform[ =]' '{if (NF>1) print $2}' | awk '{print $1}')
             echo "platform is $platform"
             # 如果存在架构信息 将架构信息拼到镜像名称前面
@@ -162,8 +162,8 @@ jobs:
             # 将@sha256:等字符删除
             image_name_tag="${image_name_tag%%@*}"
             new_image="$ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/$platform_prefix$name_space_prefix$image_name_tag"
-            echo "docker tag $image $new_image"
-            docker tag $image $new_image
+            echo "docker tag docker.1panel.live/$image $new_image"
+            docker tag docker.1panel.live/$image $new_image
             echo "docker push $new_image"
             docker push $new_image
             echo "开始清理磁盘空间"
