@@ -2,6 +2,11 @@ name: Docker
 
 on:
   workflow_dispatch:
+    inputs:
+      batch:
+        description: 'batch file index (0-3)'
+        required: false
+        default: '0'
   push:
     branches: [ main ]
 
@@ -51,6 +56,16 @@ jobs:
 
     - name: Checkout Code
       uses: actions/checkout@v4
+
+    - name: Select batch
+      run: |
+        BATCH="${{ github.event.inputs.batch }}"
+        if [ -f "images_batch${BATCH}.txt" ]; then
+          cp "images_batch${BATCH}.txt" images.txt
+          echo "using images_batch${BATCH}.txt"
+        else
+          echo "using default images.txt"
+        fi
 
     - name: Docker Setup Buildx
       uses: docker/setup-buildx-action@v3
