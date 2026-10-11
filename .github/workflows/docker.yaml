@@ -7,6 +7,10 @@ on:
         description: 'batch file index (0-3)'
         required: false
         default: '0'
+      ns:
+        description: 'ACR namespace (codingagent1/2/3)'
+        required: false
+        default: 'codingagent1'
   push:
     branches: [ main ]
 
@@ -73,6 +77,10 @@ jobs:
     - name: Build and push image Aliyun
       run: |
         docker login -u $ALIYUN_REGISTRY_USER -p $ALIYUN_REGISTRY_PASSWORD $ALIYUN_REGISTRY
+        # p09: 命名空间选择（workflow_dispatch 输入优先）
+        if [ -n "${{ github.event.inputs.ns }}" ]; then
+          ALIYUN_NAME_SPACE="${{ github.event.inputs.ns }}"
+        fi
         # 数据预处理,判断镜像是否重名
         declare -A duplicate_images
         declare -A temp_map
